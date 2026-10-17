@@ -29,7 +29,7 @@ A REST-style JSON API backing both the web dashboard and the Android app, with `
 
 - **Backend:** PHP (PDO + MySQL)
 - **Frontend:** Server-rendered PHP templates, plain CSS, vanilla JS where needed
-- **Auth:** PHP sessions, with `password_hash`/`password_verify` for credentials and an admin-approval gate before login
+- **Auth:** PHP sessions for the web pages and bearer tokens for the API, with `password_hash`/`password_verify` for credentials and an admin-approval gate before login
 
 ## Project Structure
 BrightStart/
@@ -81,43 +81,23 @@ BrightStart/
 
 ### Database
 
-No SQL schema file is currently checked into the repo. You'll need a `brightstart` database with (at minimum) an `administrator` table matching the fields referenced in `api/login.php` (`Email`, `PasswordHash`, `Verified`, etc.), plus tables for students, enrolments, attendance, programs, sessions, volunteers, donations, and performance records used by the corresponding API endpoints.
-
-> Consider adding a `schema.sql` to this repo so the database can be recreated from scratch.
+Run `database/schema.sql` then `database/seed.sql` (MySQL 8). The seed script loads 10+ sample rows per table and four demo accounts (password `BrightStart@2026`, see `DEPLOY_AZURE.md`).
 
 ### Configuration
 
-Database credentials are set in `api/db.php`:
-
-```php
-$host = "localhost";
-$db   = "brightstart";
-$user = "root";
-$pass = "";
-```
-
-These are local development defaults — update them for your environment, and consider moving them to environment variables before deploying anywhere public.
+Credentials are read from environment variables (`DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASS`, `DB_SSL`, plus `GOOGLE_CLIENT_ID` and `SSO_AUTO_APPROVE`). Without them the code falls back to local XAMPP defaults (`localhost` / `brightstart` / `root` / empty password).
 
 ### Running locally
 
-```bash
-git clone https://github.com/<your-username>/brightstart-web.git
-cd brightstart-web
-```
+With XAMPP/WAMP/MAMP place the folder in `htdocs/` and visit `http://localhost/brightstart-web/`, or run `php -S localhost:8000`.
 
-With XAMPP/WAMP/MAMP: place the folder in your server's web root (e.g. `htdocs/`) and visit `http://localhost/BrightStart/`.
+### Deploying
 
-Or with PHP's built-in server:
-
-```bash
-php -S localhost:8000
-```
-
-Then visit `http://localhost:8000`.
+See **DEPLOY_AZURE.md** for the step-by-step Azure App Service + Azure Database for MySQL guide.
 
 ### Connecting the Android app
 
-The Android client expects this API to be reachable at a configured base URL (see its `BASE_URL` build config field). If testing on a real device, expose your local server via a tool like ngrok and point the app at that URL.
+The Android client expects this API to be reachable at a configured base URL (see its `BASE_URL` build config field). Point it at your Azure URL, e.g. `https://<app>.azurewebsites.net/api/`.
 
 ## Security Notes
 

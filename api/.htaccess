@@ -1,0 +1,4 @@
+# Make the Authorization header visible to PHP on Apache (Azure App Service Linux)
+RewriteEngine On
+RewriteCond %{HTTP:Authorization} .
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]

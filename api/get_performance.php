@@ -1,5 +1,5 @@
 <?php
-require 'db.php';
+require 'auth.php'; $authUser = requireAuth();
 $stmt = $pdo->query("
     SELECT p.*, CONCAT(s.FirstName,' ',s.LastName) AS StudentName, pr.ProgramName
     FROM tblperformance p

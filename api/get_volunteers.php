@@ -1,5 +1,5 @@
 <?php
-require 'db.php';
+require 'auth.php'; $authUser = requireAuth();
 $search = $_GET['search'] ?? '';
 if ($search) {
     $stmt = $pdo->prepare("SELECT * FROM tblvolunteer WHERE FullName LIKE ? OR SubjectSpeciality LIKE ? OR ContactEmail LIKE ? ORDER BY VolunteerID DESC LIMIT 200");

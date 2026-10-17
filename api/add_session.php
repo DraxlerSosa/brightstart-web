@@ -1,5 +1,5 @@
 <?php
-require 'db.php';
+require 'auth.php'; $authUser = requireAuth();
 $r = json_decode(file_get_contents("php://input"), true);
 $stmt = $pdo->prepare("INSERT INTO tblsession (ProgramID,VolunteerID,SessionDate,StartTime,EndTime,Venue) VALUES (?,?,?,?,?,?)");
 $stmt->execute([$r['program_id'],$r['volunteer_id'],$r['session_date'],$r['start_time'],$r['end_time'],$r['venue']]);

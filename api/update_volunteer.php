@@ -1,5 +1,5 @@
 <?php
-require 'db.php';
+require 'auth.php'; $authUser = requireAuth();
 $id = $_GET['id'] ?? 0;
 $r  = json_decode(file_get_contents("php://input"), true);
 $stmt = $pdo->prepare("UPDATE tblvolunteer SET FullName=?,ContactEmail=?,ContactNumber=?,SubjectSpeciality=?,JoinDate=?,Status=? WHERE VolunteerID=?");

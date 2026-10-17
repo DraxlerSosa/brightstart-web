@@ -1,5 +1,5 @@
 <?php
-require 'db.php';
+require 'auth.php'; $authUser = requireAuth();
 $students   = $pdo->query("SELECT COUNT(*) FROM tblstudent")->fetchColumn();
 $volunteers = $pdo->query("SELECT COUNT(*) FROM tblvolunteer")->fetchColumn();
 $programs   = $pdo->query("SELECT COUNT(*) FROM tblprogram")->fetchColumn();

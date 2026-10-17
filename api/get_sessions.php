@@ -1,5 +1,5 @@
 <?php
-require 'db.php';
+require 'auth.php'; $authUser = requireAuth();
 $stmt = $pdo->query("
     SELECT s.*, p.ProgramName, v.FullName AS VolName
     FROM tblsession s
