@@ -108,3 +108,4 @@ The Android client expects this API to be reachable at a configured base URL (se
 ## License
 
 No license specified yet — add one (e.g. MIT) if you intend to make this publicly reusable.
+ 
